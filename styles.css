@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Chat App</title>
+
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+  <div id="username-container" class="modal">
+
+    <div class="modal-content">
+
+      <h2>Welcome to the Chat Website!</h2>
+
+      <p>Please enter your username:</p>
