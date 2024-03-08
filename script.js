@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const chatBox = document.getElementById("chat-box");
   const messageInput = document.getElementById("message-input");
   const sendButton = document.getElementById("send-btn");
+  const resetButton = document.getElementById("reset-btn");
   const darkModeToggle = document.getElementById("dark-mode-toggle");
   const usernameForm = document.getElementById("username-form");
   const usernameInput = document.getElementById("username-input");
@@ -40,9 +41,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const message = messageInput.value.trim();
     if (message !== "") {
       appendMessage(username + ": " + message);
-      saveMessage(username + ": " + message);
+      sendMessageToDiscord(username + ": " + message);
       messageInput.value = "";
     }
+  });
+
+  resetButton.addEventListener("click", function() {
+    localStorage.removeItem("chatUsername");
+    location.reload(); // Refresh the page to reset the UI
   });
 
   function appendMessage(message) {
@@ -53,13 +59,24 @@ document.addEventListener("DOMContentLoaded", function() {
     chatBox.scrollTop = chatBox.scrollHeight;
   }
 
-  function saveMessage(message) {
-    const savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
-    savedMessages.push(message);
-    localStorage.setItem("chatMessages", JSON.stringify(savedMessages));
+  async function sendMessageToDiscord(message) {
+    try {
+      const response = await fetch("YOUR_DISCORD_WEBHOOK_URL", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          content: message
+        })
+      });
+      if (response.ok) {
+        console.log("Message sent to Discord channel successfully!");
+      } else {
+        console.error("Failed to send message to Discord channel:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error sending message to Discord channel:", error);
+    }
   }
-
-  // Load messages from localStorage
-  const savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
-  savedMessages.forEach(message => appendMessage(message));
 });
