@@ -1,37 +1,30 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Chat App</title>
-
   <link rel="stylesheet" href="styles.css">
-
 </head>
-
 <body>
-
   <div id="username-container" class="modal">
-
     <div class="modal-content">
-
-      <h2>Welcome to the Chat Website!</h2>
-
+      <h2>Welcome to the Chat App!</h2>
       <p>Please enter your username:</p>
-
       <form id="username-form">
-
         <input type="text" id="username-input" placeholder="Enter your username" required>
-
         <button type="submit">Set Username</button>
-
       </form>
-
     </div>
-
   </div>
+  <div class="chat-container">
+    <div id="chat-box"></div>
+    <div class="message-input-container">
+      <input type="text" id="message-input" placeholder="Type your message..." required>
+      <button id="send-btn">Send</button>
+      <button id="dark-mode-toggle">Toggle Dark Mode</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+  </html>
