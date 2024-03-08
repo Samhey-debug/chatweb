@@ -48,8 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 const aiResponse = await getResponseFromBrainShopAPI(message);
                 sendMessage('AI', aiResponse, false); // false indicates it's not a user message
             } catch (error) {
-                console.error('Error fetching AI response:', error);
-                sendMessage('AI', 'Error fetching AI response. Please try again later.', false);
             }
         }
     });
