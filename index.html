@@ -1,32 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat Web</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatting Website</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="username-container" class="modal">
-    <div class="modal-content">
-      <h2>Welcome to the Chat Web Thing!</h2>
-      <p>Please enter your username:</p>
-      <form id="username-form">
-        <input type="text" id="username-input" placeholder="Enter your username" required>
-        <button type="submit">Set Username</button>
-      </form>
+    <div id="usernameModal" class="modal">
+        <div class="modal-content">
+            <h2>Enter your username</h2>
+            <input type="text" id="usernameInputModal" placeholder="Username">
+            <button id="setUsername">Set Username</button>
+        </div>
     </div>
-  </div>
-  <div class="chat-container">
-    <div id="chat-box"></div>
-    <div class="message-input-container">
-      <input type="text" id="message-input" placeholder="Type your message..." required>
-      <button id="send-btn">Send</button>
-      <button id="change-username-btn">Change Username</button>
-      <button id="reset-btn">Reset Info</button>
-      <button id="dark-mode-toggle">Toggle Dark Mode</button>
+
+    <div id="resetChatConfirmModal" class="modal">
+        <div class="modal-content">
+            <h2>Are you sure you want to reset the chat?</h2>
+            <button id="resetChatConfirm">Yes</button>
+            <button id="cancelResetChat">Cancel</button>
+        </div>
     </div>
-  </div>
-  <script src="script.js"></script>
+
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+            <h1>Chatting Website</h1>
+            <label class="switch">
+                <input type="checkbox" id="modeSwitch">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <!-- Chat messages will be displayed here -->
+        </div>
+        <div class="chat-input">
+            <input type="text" id="messageInput" placeholder="Type your message...">
+            <button id="sendMessage">Send</button>
+            <button id="resetChat">Reset Chat</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
   </html>
