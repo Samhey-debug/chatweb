@@ -43,11 +43,12 @@ document.addEventListener('DOMContentLoaded', function () {
         if (username !== '' && message !== '') {
             sendMessage(username, message);
             messageInput.value = '';
-            // Fetch response from BrainShop API
             try {
                 const aiResponse = await getResponseFromBrainShopAPI(message);
                 sendMessage('AI', aiResponse, false); // false indicates it's not a user message
             } catch (error) {
+                console.error('Error fetching AI response:', error);
+                sendMessage('AI', 'Error fetching AI response. Please try again later.', false);
             }
         }
     });
@@ -95,13 +96,12 @@ document.addEventListener('DOMContentLoaded', function () {
     async function getResponseFromBrainShopAPI(message) {
         const apiKey = 'GEzYwPY6O4mUv2Vw';
         const brainShopURL = `http://api.brainshop.ai/get?bid=180030&key=${apiKey}&uid=0&msg=${encodeURIComponent(message)}`;
-        try {
-            const response = await fetch(brainShopURL);
-            const data = await response.json();
-            return data.cnt;
-        } catch (error) {
-            throw new Error('Error fetching data from BrainShop API: ' + error.message);
+        const response = await fetch(brainShopURL);
+        if (!response.ok) {
+            throw new Error('Failed to fetch response from BrainShop API');
         }
+        const data = await response.json();
+        return data.cnt;
     }
 
 });
