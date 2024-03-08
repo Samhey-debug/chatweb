@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const usernameForm = document.getElementById("username-form");
   const usernameInput = document.getElementById("username-input");
   const usernameContainer = document.getElementById("username-container");
+  const changeUsernameButton = document.getElementById("change-username-btn");
 
   let username = localStorage.getItem("chatUsername");
   if (!username) {
@@ -15,9 +16,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
   usernameForm.addEventListener("submit", function(event) {
     event.preventDefault();
-    username = usernameInput.value.trim();
-    localStorage.setItem("chatUsername", username);
+    const newUsername = usernameInput.value.trim();
+    if (newUsername !== username) {
+      sendUsernameChangeWebhook(username, newUsername);
+      username = newUsername;
+      localStorage.setItem("chatUsername", username);
+    }
     usernameContainer.style.display = "none";
+  });
+
+  changeUsernameButton.addEventListener("click", function() {
+    localStorage.removeItem("chatUsername");
+    usernameContainer.style.display = "block";
   });
 
   let mode = localStorage.getItem("chatMode");
@@ -41,7 +51,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const message = messageInput.value.trim();
     if (message !== "") {
       appendMessage(username + ": " + message);
-      sendMessageToDiscord(username + ": " + message);
       messageInput.value = "";
     }
   });
@@ -59,7 +68,8 @@ document.addEventListener("DOMContentLoaded", function() {
     chatBox.scrollTop = chatBox.scrollHeight;
   }
 
-  async function sendMessageToDiscord(message) {
+  async function sendUsernameChangeWebhook(oldUsername, newUsername) {
+    const webhookMessage = `User "${oldUsername}" changed their username to "${newUsername}"`;
     try {
       const response = await fetch("https://discord.com/api/webhooks/1215577346950701117/xPMTDhlhv8NYZmDTt1iVBaOqT_qp8Ij2M0rG3YCF-yyFmJwYaEEFAf-dnLVZFq4u7B0i", {
         method: "POST",
@@ -67,16 +77,16 @@ document.addEventListener("DOMContentLoaded", function() {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          content: message
+          content: webhookMessage
         })
       });
       if (response.ok) {
-        console.log("Message sent to Discord channel successfully!");
+        console.log("Username change webhook sent successfully!");
       } else {
-        console.error("Failed to send message to Discord channel:", response.statusText);
+        console.error("Failed to send username change webhook:", response.statusText);
       }
     } catch (error) {
-      console.error("Error sending message to Discord channel:", error);
+      console.error("Error sending username change webhook:", error);
     }
   }
 });
