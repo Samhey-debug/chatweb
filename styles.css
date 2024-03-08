@@ -488,4 +488,118 @@ input:checked + .slider:before {
 
     100% { transform: rotate(360deg); }
 
-  }
+}
+
+/* Typing animation for user messages */
+
+@keyframes typing {
+
+    0% { width: 0; }
+
+    100% { width: 100%; }
+
+}
+
+.user-typing::after {
+
+    content: "|";
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    overflow: hidden;
+
+    animation: typing 1s steps(1) infinite;
+
+}
+
+/* Fade-in animation for chat messages */
+
+.message {
+
+    opacity: 0;
+
+    animation: fadeIn 0.5s ease-in-out forwards;
+
+}
+
+@keyframes fadeIn {
+
+    0% { opacity: 0; }
+
+    100% { opacity: 1; }
+
+}
+
+/* Bounce animation for send button */
+
+#sendMessage {
+
+    transition: transform 0.3s ease;
+
+}
+
+#sendMessage:hover {
+
+    transform: scale(1.1);
+
+}
+
+/* Slide-in animation for modal popups */
+
+.modal {
+
+    display: none;
+
+    position: fixed;
+
+    z-index: 1;
+
+    left: 0;
+
+    top: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    overflow: auto;
+
+    background-color: rgb(0,0,0);
+
+    background-color: rgba(0,0,0,0.4);
+
+    animation: slideIn 0.5s;
+
+}
+
+@keyframes slideIn {
+
+    from { top: -100px; opacity: 0; }
+
+    to { top: 0; opacity: 1; }
+
+}
+
+/* Shake animation for error messages */
+
+.error-message {
+
+    animation: shake 0.5s;
+
+}
+
+@keyframes shake {
+
+    0% { transform: translateX(0); }
+
+    25% { transform: translateX(-5px); }
+
+    50% { transform: translateX(5px); }
+
+    75% { transform: translateX(-5px); }
+
+    100% { transform: translateX(0); }
+
+    }
